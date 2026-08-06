@@ -58,8 +58,8 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 28px 0;
-  gap: 32px;
+  padding: 22px 0;
+  gap: 24px;
   overflow: visible;
 }
 
@@ -84,7 +84,7 @@ a { color: inherit; text-decoration: none; }
 .nav-links {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 }
 
 .nav-links a {
@@ -190,7 +190,7 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
 }
 .follow-label {
   writing-mode: vertical-rl;
