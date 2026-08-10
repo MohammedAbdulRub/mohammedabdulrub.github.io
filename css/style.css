@@ -60,26 +60,32 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   padding: 22px 0;
   gap: 24px;
-  overflow: visible;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
+.sidebar::-webkit-scrollbar { display: none; }
 
 .main-content {
   margin-left: 92px;
 }
 
 .logo {
-  font-family: var(--mono);
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text);
-}
-.logo-text {
+  display: block;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  padding: 2px;
   background: var(--gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  flex-shrink: 0;
 }
-.logo .dot { color: var(--pink); }
+.logo-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 2px solid var(--surface);
+}
 
 .nav-links {
   display: flex;
@@ -146,15 +152,15 @@ a { color: inherit; text-decoration: none; }
 .sidebar-resume::after {
   content: attr(aria-label);
   position: absolute;
-  left: 100%;
-  top: 50%;
-  margin-left: 14px;
-  transform: translateY(-50%) translateX(-6px);
+  top: 100%;
+  left: 50%;
+  margin-top: 8px;
+  transform: translateX(-50%) translateY(-4px);
   background: var(--text);
   color: #ffffff;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  padding: 6px 10px;
+  padding: 4px 9px;
   border-radius: 6px;
   white-space: nowrap;
   opacity: 0;
@@ -164,7 +170,7 @@ a { color: inherit; text-decoration: none; }
 }
 .sidebar-resume:hover::after {
   opacity: 1;
-  transform: translateY(-50%) translateX(0);
+  transform: translateX(-50%) translateY(0);
 }
 
 .sidebar-resume {
@@ -193,28 +199,28 @@ a { color: inherit; text-decoration: none; }
   gap: 10px;
 }
 .follow-label {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-size: 0.68rem;
+  font-size: 0.62rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--text-muted);
+  text-align: center;
+  line-height: 1.3;
   margin-bottom: 6px;
 }
 .sidebar-social a { position: relative; justify-content: center; }
 .sidebar-social a::after {
   content: attr(aria-label);
   position: absolute;
-  left: 100%;
-  top: 50%;
-  margin-left: 14px;
-  transform: translateY(-50%) translateX(-6px);
+  top: 100%;
+  left: 50%;
+  margin-top: 8px;
+  transform: translateX(-50%) translateY(-4px);
   background: var(--text);
   color: #ffffff;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  padding: 6px 10px;
+  padding: 4px 9px;
   border-radius: 6px;
   white-space: nowrap;
   opacity: 0;
@@ -222,7 +228,7 @@ a { color: inherit; text-decoration: none; }
   transition: opacity 0.2s ease, transform 0.2s ease;
   z-index: 200;
 }
-.sidebar-social a:hover::after { opacity: 1; transform: translateY(-50%) translateX(0); }
+.sidebar-social a:hover::after { opacity: 1; transform: translateX(-50%) translateY(0); }
 .sidebar-social a {
   font-size: 0.85rem;
   font-weight: 500;
@@ -294,44 +300,74 @@ a { color: inherit; text-decoration: none; }
 }
 .hero-copy { flex: 1; min-width: 0; }
 
-/* Scattered US-landmark doodle icons */
+/* Scattered US-landmark doodle icons, drifting left to right */
 .hero-decor {
   position: absolute;
   inset: 0;
   z-index: 0;
+  overflow: hidden;
   pointer-events: none;
 }
 .decor-icon {
   position: absolute;
-  color: var(--text-muted);
-  opacity: 0.14;
-  animation: decorFloat 7s ease-in-out infinite;
+  left: -16%;
+  opacity: 0.5;
+  animation-name: decorDrift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
-.decor-bridge { width: 110px; top: 14%; left: 6%; transform: rotate(-6deg); animation-duration: 8s; }
-.decor-liberty { width: 64px; bottom: 16%; left: 22%; transform: rotate(4deg); animation-duration: 6.5s; animation-delay: 0.6s; }
-.decor-rushmore { width: 130px; top: 44%; right: 4%; transform: rotate(3deg); animation-duration: 9s; animation-delay: 0.3s; }
-.decor-capitol { width: 84px; bottom: 10%; right: 26%; transform: rotate(-4deg); animation-duration: 7.5s; animation-delay: 1s; }
-@keyframes decorFloat {
-  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
-  50% { transform: translateY(-12px) rotate(var(--r, 0deg)); }
+.decor-bridge     { width: 110px; top: 10%;  animation-duration: 22s; animation-delay: -3s; }
+.decor-liberty    { width: 64px;  top: 66%;  animation-duration: 17s; animation-delay: -7s; }
+.decor-rushmore   { width: 130px; top: 40%;  animation-duration: 24s; animation-delay: -2s; }
+.decor-capitol    { width: 84px;  top: 6%;   animation-duration: 16s; animation-delay: -5s; }
+.decor-bridge-2   { width: 78px;  top: 58%;  animation-duration: 26s; animation-delay: -15s; }
+.decor-liberty-2  { width: 46px;  top: 20%;  animation-duration: 19s; animation-delay: -11s; }
+.decor-rushmore-2 { width: 92px;  top: 78%;  animation-duration: 20s; animation-delay: -9s; }
+.decor-capitol-2  { width: 60px;  top: 50%;  animation-duration: 23s; animation-delay: -17s; }
+@keyframes decorDrift {
+  0%   { transform: translate(0, 0); }
+  50%  { transform: translate(65vw, -10px); }
+  100% { transform: translate(132vw, 0); }
 }
+@media (prefers-reduced-motion: reduce) {
+  .decor-icon { animation: none; left: 10%; }
+}
+
+/* Trail of small "thinking" dots leading up to the thought cloud */
+.thought-trail {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.trail-dot {
+  border-radius: 50%;
+  background: var(--surface);
+  border: 3px solid var(--violet);
+  box-shadow: var(--shadow-sm);
+}
+.dot-1 { width: 14px; height: 14px; margin-right: 30px; border-color: var(--coral); }
+.dot-2 { width: 24px; height: 24px; margin-right: 14px; border-color: var(--pink); }
+.dot-3 { width: 38px; height: 38px; margin-right: 0; border-color: var(--violet); }
 
 .hero-photo-wrap {
   position: relative;
   flex-shrink: 0;
-  width: 240px;
-  height: 380px;
+  width: 420px;
+  height: 340px;
 }
 .hero-blob {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 320px;
-  height: 320px;
+  width: 480px;
+  height: 400px;
   transform: translate(-50%, -50%);
   background: linear-gradient(135deg, var(--coral), var(--amber) 45%, var(--cyan) 100%);
   border-radius: 62% 38% 55% 45% / 45% 55% 45% 55%;
-  opacity: 0.4;
+  opacity: 0.35;
   z-index: 0;
   animation: blobMorph 10s ease-in-out infinite;
 }
@@ -345,18 +381,19 @@ a { color: inherit; text-decoration: none; }
   z-index: 1;
   width: 100%;
   height: 100%;
-  border-radius: 50%;
-  padding: 6px;
+  padding: 8px;
   background: var(--gradient);
-  box-shadow: var(--shadow-lg);
+  clip-path: url(#thoughtCloud);
+  filter:
+    drop-shadow(0 4px 8px rgba(16, 24, 40, 0.18))
+    drop-shadow(0 20px 40px rgba(16, 24, 40, 0.28));
 }
 .hero-photo img {
   display: block;
   width: 100%;
   height: 100%;
-  border-radius: 50%;
   object-fit: cover;
-  border: 4px solid #ffffff;
+  clip-path: url(#thoughtCloud);
 }
 .eyebrow {
   display: inline-block;
@@ -682,6 +719,9 @@ a { color: inherit; text-decoration: none; }
 .timeline-item:nth-child(4) .timeline-date { color: var(--pink); }
 .timeline-content h3 { font-size: 1.05rem; margin-bottom: 6px; color: var(--text); }
 .timeline-content p { color: var(--text-muted); font-size: 0.92rem; }
+.timeline-content ul { color: var(--text-muted); font-size: 0.92rem; padding-left: 18px; }
+.timeline-content li { margin-bottom: 4px; }
+.timeline-content li:last-child { margin-bottom: 0; }
 
 /* CONTACT */
 .contact { text-align: left; }
@@ -729,9 +769,11 @@ a { color: inherit; text-decoration: none; }
   .about-grid { grid-template-columns: 1fr; }
   .timeline-item { grid-template-columns: 1fr; gap: 8px; }
   .hero-inner { flex-direction: column-reverse; text-align: center; }
-  .hero-photo-wrap { width: 180px; height: 280px; }
-  .hero-blob { width: 220px; height: 220px; }
+  .hero-photo-wrap { width: 280px; height: 230px; }
+  .hero-blob { width: 320px; height: 270px; }
+  .thought-trail { display: none; }
   .hero-links, .hero-actions { justify-content: center; }
-  .decor-icon { opacity: 0.08; }
+  .decor-icon { opacity: 0.3; }
   .decor-rushmore, .decor-bridge { width: 80px; }
+  .decor-bridge-2, .decor-liberty-2, .decor-rushmore-2, .decor-capitol-2 { display: none; }
 }
