@@ -32,13 +32,33 @@ const setActiveLink = () => {
 window.addEventListener('scroll', setActiveLink);
 window.addEventListener('load', setActiveLink);
 
+// Resume dropdown — position as a fixed-position flyout so it escapes the
+// sidebar's scroll clipping, and close it on an outside click
+const resumeDD = document.querySelector('.resume-dd');
+if (resumeDD) {
+  const resumeMenu = resumeDD.querySelector('.resume-menu');
+  const positionResumeMenu = () => {
+    const rect = resumeDD.getBoundingClientRect();
+    resumeMenu.style.top = `${rect.top}px`;
+    resumeMenu.style.left = `${rect.right + 10}px`;
+  };
+  resumeDD.addEventListener('toggle', () => {
+    if (resumeDD.open) positionResumeMenu();
+  });
+  document.addEventListener('click', (e) => {
+    if (resumeDD.open && !resumeDD.contains(e.target)) {
+      resumeDD.removeAttribute('open');
+    }
+  });
+}
+
 // Typewriter effect for "Skilled at ___"
 const typedEl = document.getElementById('typed');
 if (typedEl) {
   const phrases = [
+    'Generative AI Engineer',
     'Data Scientist',
-    'Machine Learning AI Engineer',
-    'Data Analyst'
+    'Machine Learning Engineer'
   ];
   let phraseIndex = 0;
   let charIndex = 0;
